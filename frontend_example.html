@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Completar Datos Pendientes</title>
+    <script>
+    async function loadPending(){
+        const res = await fetch('http://localhost:9000/pending');
+        const html = await res.text();
+        document.getElementById('pending').innerHTML = html;
+    }
+    window.onload = loadPending;
+    </script>
+</head>
+<body>
+<h2>Usuarios con datos faltantes</h2>
+<div id="pending">Cargando...</div>
+<p>Selecciona un usuario para completar sus datos. Se abrirá un formulario donde podrás enviar la información de vuelta al flujo.</p>
+</body>
+</html>

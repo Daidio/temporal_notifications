@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 @dataclass
 class User:
-    first_name: str
+    first_name: Optional[str]
     last_name: Optional[str]
     rut: str
     address: str
@@ -56,7 +56,7 @@ class User:
         )
 
 class UserModel(BaseModel):
-    first_name: str
+    first_name: Optional[str] = None
     last_name: Optional[str] = None
     rut: str
     address: str
