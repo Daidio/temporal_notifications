@@ -37,14 +37,14 @@ async def receive_user(
 
     # Convertir el modelo a diccionario
     user_dict = user_payload.model_dump()
-    
+
     # Asegurarnos de que created_at sea un string ISO
     if not isinstance(user_dict.get('created_at'), str):
         user_dict['created_at'] = datetime.now().isoformat()
-    
+
     # Convertir payload a dataclass
     user = User(**user_dict)
-    
+
     # Obtener handle al workflow en ejecución
     handle = client.get_workflow_handle("user-listener")
     # Enviar señal 'submit' al workflow

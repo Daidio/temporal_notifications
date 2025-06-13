@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 @dataclass
 class User:
@@ -52,7 +52,7 @@ class User:
             advisor_email=model.advisor_email,
             advisor_phone=model.advisor_phone,
             created_at=model.created_at.isoformat(),
-            updated_at=model.updated_at.isoformat() if model.updated_at else None
+            updated_at=model.updated_at.isoformat() if model.updated_at else None,
         )
 
 class UserModel(BaseModel):
@@ -83,3 +83,4 @@ class UserModel(BaseModel):
         json_encoders = {
             datetime: lambda v: v.isoformat()
         }
+
