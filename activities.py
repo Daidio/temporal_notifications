@@ -10,9 +10,7 @@ async def process_user(user: User) -> None:
 
 @activity.defn
 async def notify_missing_data(user: User, missing_fields: list[str]) -> None:
-    """
-    Notifica a `server_notifications` los campos faltantes.
-    """
+    """Envía notificación a `server_notifications` con los campos faltantes."""
     import httpx
     try:
         async with httpx.AsyncClient() as client:
@@ -20,12 +18,12 @@ async def notify_missing_data(user: User, missing_fields: list[str]) -> None:
                 "http://localhost:9000/notify_missing",
                 json={
                     "email": user.email,
-                    "missing_fields": missing_fields
+                    "missing_fields": missing_fields,
                 },
-                timeout=5.0
+                timeout=5.0,
             )
             response.raise_for_status()
             print(f"[Activity] Notificación enviada para {user.email}")
     except Exception as e:
-        print(f"[Activity] Error al notificar: {str(e)}")
+        print(f"[Activity] Error al notificar: {e}")
         raise
