@@ -32,9 +32,12 @@ class UserWorkflow:
         self._waiting: Dict[str, workflow.Future] = {}
 
     @workflow.signal
-    async def submit(self, user: User) -> None:
+    async def submit(self, user_data: dict) -> None:
         """Señal para encolar un nuevo User."""
-        self._queue.append(user)
+        # Convertir los datos recibidos en una instancia de User. Recibimos un
+        # diccionario para evitar problemas de deserialización de dataclasses
+        # cuando la señal proviene de distintos entornos de Python.
+        self._queue.append(User(**user_data))
 
     @workflow.signal
     async def update(self, user_data: dict) -> None:

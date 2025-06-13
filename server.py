@@ -42,13 +42,11 @@ async def receive_user(
     if not isinstance(user_dict.get('created_at'), str):
         user_dict['created_at'] = datetime.now().isoformat()
 
-    # Convertir payload a dataclass
-    user = User(**user_dict)
-
     # Obtener handle al workflow en ejecución
     handle = client.get_workflow_handle("user-listener")
-    # Enviar señal 'submit' al workflow
-    await handle.signal("submit", user)
+    # Enviar señal 'submit' al workflow con el dict en vez de dataclass para
+    # evitar problemas de serialización entre distintas versiones de Python
+    await handle.signal("submit", user_dict)
     return {"status": "submitted"}
 
 if __name__ == "__main__":
